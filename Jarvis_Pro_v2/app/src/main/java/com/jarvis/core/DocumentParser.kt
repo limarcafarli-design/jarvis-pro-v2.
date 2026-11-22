@@ -118,11 +118,11 @@ object DocumentParser {
     }
 
     private fun extractPrice(text: String): Double? {
-        val totalRegex = Regex("(?i)(yekun|cəmi|total|məbləğ|qiymət|итого|сумма)[^0-9]{0,20}([0-9][0-9\s.,]{0,14})")
+        val totalRegex = Regex("(?i)(yekun|cəmi|total|məbləğ|qiymət|итого|сумма)[^0-9]{0,20}([0-9][0-9\\s.,]{0,14})")
         totalRegex.find(text)?.let {
             it.groupValues[2].replace(" ", "").replace(",", ".").toDoubleOrNull()?.let { v -> return v }
         }
-        val currRegex = Regex("([0-9]+(?:[.,][0-9]{1,2})?)\s*(?i)(azn|usd|eur|manat|rub)")
+        val currRegex = Regex("([0-9]+(?:[.,][0-9]{1,2})?)\\s*(?i)(azn|usd|eur|manat|rub)")
         return currRegex.findAll(text).mapNotNull { it.groupValues[1].replace(",", ".").toDoubleOrNull() }.maxOrNull()
     }
 
@@ -136,7 +136,7 @@ object DocumentParser {
     }
 
     private fun extractDelivery(text: String): String {
-        return Regex("(\d{1,3})\s*(?i)(iş günü|gün|day|days|дней|день|günə)").find(text)?.value ?: "—"
+        return Regex("(\\d{1,3})\\s*(?i)(iş günü|gün|day|days|дней|день|günə)").find(text)?.value ?: "—"
     }
 
     private fun getFileName(context: Context, uri: Uri): String {

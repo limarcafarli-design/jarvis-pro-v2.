@@ -183,9 +183,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun appendLog(line: String) {
-        tvLog.append("
-
-$line")
+        tvLog.append("\n\n$line")
     }
 
     override fun onDestroy() {

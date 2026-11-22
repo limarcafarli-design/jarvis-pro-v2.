@@ -130,7 +130,7 @@ class JarvisCommandRouter(
 
     private fun tryOpenAnyAppFromSentence(cmd: String): Boolean {
         val stopWords = setOf("aç", "ac", "open", "открой", "gir", "işə", "sal", "tətbiqi", "proqramı")
-        val tokens = cmd.split(Regex("[\s,.-]+"))
+        val tokens = cmd.split(Regex("[\\s,.-]+"))
             .map { cleanAzSuffix(it) }
             .filter { it.length >= 2 && it !in stopWords }
 
@@ -227,7 +227,7 @@ class JarvisCommandRouter(
     }
 
     private fun setAlarm(cmd: String) {
-        val match = Regex("(\d{1,2})[:\s](\d{2})").find(cmd)
+        val match = Regex("(\\d{1,2})[:\\s](\\d{2})").find(cmd)
         val hour = match?.groupValues?.get(1)?.toIntOrNull() ?: 8
         val min = match?.groupValues?.get(2)?.toIntOrNull() ?: 0
         val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
